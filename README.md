@@ -1,0 +1,1 @@
+Dummy webshop with fake products in order to test retrieving data from API and displaying it with React.
