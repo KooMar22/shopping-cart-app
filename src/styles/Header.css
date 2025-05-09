@@ -8,19 +8,25 @@
   padding: .5rem 0;
 }
 
+.title {
+  font-size: calc(1.5rem + 1vw);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-style: oblique;
+}
+
 .navbar-list {
   list-style: none;
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  padding: 0;
   margin: 0.5rem 0;
 }
 
 .navbar-list li {
   cursor: pointer;
-  color: white;
-  font-size: calc(1rem + 0.5vw);
+  color: rgb(255, 255, 255);
+  font-size: calc(1rem + .5vw);
 }
 
 .navbar-list li a {
@@ -29,8 +35,20 @@
 }
 
 .navbar-list li a:hover {
-  text-decoration: underline;
   font-weight: bold;
+}
+
+.cart-icon {
+    color: rgb(255, 255, 255);
+}
+
+.cart-count {
+  position: absolute;
+  background-color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
+  padding: 0.2rem 0.5rem;
+  font-size: calc(0.5rem + 1vw);
+  border-radius: 10px;
 }
 
 .layout-container {
@@ -38,17 +56,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #f0f0f0;
-  border-radius: 10px 10px 0 0;
+  background-color: rgb(240, 240, 240);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow-y: auto; 
-}
-
-.home, .products {
-  width: 100%;
-  padding: 2rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }

@@ -8,7 +8,7 @@ const Header = () => {
   
   return (
     <header className="header">
-      <h1 className="title">Marko's Fake Products Store</h1>
+      <h1 className="title">Marko's Dummy Online Store</h1>
       <nav className="navbar">
         <ul className="navbar-list">
           <li>
@@ -18,8 +18,11 @@ const Header = () => {
             <Link to="/products">Products</Link>
           </li>
           <li>
-            <Link to="/cart" className="cart-link">
-              Cart {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
+            <Link to="/cart">
+              <span className="material-symbols-outlined cart-icon">
+                shopping_cart
+              </span>
+              {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
             </Link>
           </li>
         </ul>
@@ -28,7 +31,7 @@ const Header = () => {
   );
 };
 
-Header.prototype = {
+Header.PropTypes = {
   itemCount: PropTypes.number,
 }
 

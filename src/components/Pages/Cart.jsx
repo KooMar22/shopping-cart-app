@@ -29,7 +29,7 @@ const CartItem = ({ item, updateQuantity, removeFromCart }) => {
         <h3 className="cart-item-title">{item.title}</h3>
         <p className="cart-item-price">{item.price} €</p>
         <div className="quantity-controls">
-          <button className="btn quantity-btn" onClick={decrementQuantity}>
+          <button className="btn" id="quantity-btn" onClick={decrementQuantity}>
             -
           </button>
           <input
@@ -39,7 +39,7 @@ const CartItem = ({ item, updateQuantity, removeFromCart }) => {
             onChange={handleQuantityChange}
             className="quantity-input"
           />
-          <button className="btn quantity-btn" onClick={incrementQuantity}>
+          <button className="btn" id="quantity-btn" onClick={incrementQuantity}>
             +
           </button>
         </div>
@@ -47,7 +47,8 @@ const CartItem = ({ item, updateQuantity, removeFromCart }) => {
           Subtotal: {(item.price * item.quantity).toFixed(2)} €
         </p>
         <button
-          className="btn remove-btn"
+          className="btn"
+          id="remove-btn"
           onClick={() => removeFromCart(item.id)}
         >
           Remove
@@ -75,9 +76,9 @@ const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="cart-page">
+      <div className="emtpy-cart">
         <h1>Your Cart</h1>
-        <p className="empty-cart-message">Your cart is empty</p>
+        <p className="empty-cart-message">Your cart is empty. Feel free to browse some items and add them to the Shopping Cart.</p>
       </div>
     );
   }
