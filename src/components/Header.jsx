@@ -31,7 +31,7 @@ const Header = () => {
   );
 };
 
-Header.PropTypes = {
+Header.propTypes = {
   itemCount: PropTypes.number,
 }
 

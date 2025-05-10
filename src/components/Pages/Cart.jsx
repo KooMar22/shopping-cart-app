@@ -70,17 +70,39 @@ CartItem.propTypes = {
   removeFromCart: PropTypes.func.isRequired,
 };
 
+const EmptyCart = () => (
+  <div className="empty-cart">
+    <h1>Your Cart</h1>
+    <p className="empty-cart-message">
+      Your cart is empty. Feel free to browse some items and add them to the
+      Shopping Cart.
+    </p>
+  </div>
+);
+
+const CartSummary = ({ total, onClearCart }) => (
+  <div className="cart-summary">
+    <p className="cart-total">Total: {total.toFixed(2)} €</p>
+    <div className="cart-actions">
+      <button className="btn clear-cart-btn" onClick={onClearCart}>
+        Clear Cart
+      </button>
+      <button className="btn checkout-btn">Proceed to Checkout</button>
+    </div>
+  </div>
+);
+
+CartSummary.propTypes = {
+  total: PropTypes.number.isRequired,
+  onClearCart: PropTypes.func.isRequired,
+};
+
 const Cart = () => {
   const { cartItems, updateQuantity, removeFromCart, clearCart, getCartTotal } =
     useCart();
 
   if (cartItems.length === 0) {
-    return (
-      <div className="emtpy-cart">
-        <h1>Your Cart</h1>
-        <p className="empty-cart-message">Your cart is empty. Feel free to browse some items and add them to the Shopping Cart.</p>
-      </div>
-    );
+    return <EmptyCart />;
   }
 
   return (
@@ -96,15 +118,7 @@ const Cart = () => {
           />
         ))}
       </div>
-      <div className="cart-summary">
-        <p className="cart-total">Total: {getCartTotal().toFixed(2)} €</p>
-        <div className="cart-actions">
-          <button className="btn clear-cart-btn" onClick={clearCart}>
-            Clear Cart
-          </button>
-          <button className="btn checkout-btn">Proceed to Checkout</button>
-        </div>
-      </div>
+      <CartSummary total={getCartTotal()} onClearCart={clearCart} />
     </div>
   );
 };

@@ -5,8 +5,9 @@ import getFakeStoreProducts from "../../apis/fakeStoreAPI";
 import "../../styles/Products.css";
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useCart();
+  const { addToCart, removeFromCart, isInCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const productInCart = isInCart(product.id);
 
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value);
@@ -15,17 +16,24 @@ const ProductCard = ({ product }) => {
     }
   };
 
-  const incrementQuantity = () => {
+  const incrementQuantity = (e) => {
+    e.stopPropagation(); 
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
-  const decrementQuantity = () => {
+  const decrementQuantity = (e) => {
+    e.stopPropagation(); 
     setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
   };
 
-  const handleAddToCart = () => {
-    addToCart(product, quantity);
-    setQuantity(1);
+  const handleCartAction = (e) => {
+    e.stopPropagation(); 
+    if (productInCart) {
+      removeFromCart(product.id);
+    } else {
+      addToCart(product, quantity);
+      setQuantity(1);
+    }
   };
 
   return (
@@ -42,7 +50,7 @@ const ProductCard = ({ product }) => {
           </p>
           <p className="product-stock">Stock: {product.rating.count}</p>
         </div>
-        <div className="quantity-selector">
+        <div className="quantity-selector" onClick={(e) => e.stopPropagation()}>
           <button className="btn quantity-btn" onClick={decrementQuantity}>
             -
           </button>
@@ -57,8 +65,11 @@ const ProductCard = ({ product }) => {
             +
           </button>
         </div>
-        <button className="btn" id="add-btn" onClick={handleAddToCart}>
-          Add to Cart
+        <button
+          className={`btn ${productInCart ? "remove-btn" : "add-btn"}`}
+          onClick={handleCartAction}
+        >
+          {productInCart ? "Remove from Cart" : "Add to Cart"}
         </button>
       </div>
     </div>
@@ -80,8 +91,54 @@ ProductCard.propTypes = {
   }).isRequired,
 };
 
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const pages = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i);
+  }
+
+  return (
+    <div className="pagination">
+      <button
+        className="pagination-btn"
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        &lt;
+      </button>
+
+      {pages.map((page) => (
+        <button
+          key={page}
+          className={`pagination-btn ${currentPage === page ? "active" : ""}`}
+          onClick={() => onPageChange(page)}
+        >
+          {page}
+        </button>
+      ))}
+
+      <button
+        className="pagination-btn"
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      >
+        &gt;
+      </button>
+    </div>
+  );
+};
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
+
 const Products = () => {
   const [products, setProducts] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -106,6 +163,20 @@ const Products = () => {
     };
   }, []);
 
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products
+    ? products.slice(indexOfFirstProduct, indexOfLastProduct)
+    : [];
+  const totalPages = products
+    ? Math.ceil(products.length / productsPerPage)
+    : 0;
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="products-page">
       {loading && (
@@ -125,10 +196,17 @@ const Products = () => {
       )}
       <div className="products-container">
         {products &&
-          products.map((product) => (
+          currentProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
       </div>
+      {products && products.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };

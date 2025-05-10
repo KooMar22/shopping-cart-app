@@ -1,0 +1,25 @@
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgb(255, 255, 255);
+  }
+  
+  .footer-text {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .contact-icons {
+    display: flex;
+    gap: 25%;
+    margin-right: 2.5%;
+  }
+  
+  .icon {
+    width: 20px;
+    height: auto;
+  }

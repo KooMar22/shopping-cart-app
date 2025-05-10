@@ -69,6 +69,10 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  const isInCart = (productId) => {
+    return cartItems.some((item) => item.id === productId);
+  };
+
   const value = {
     cartItems,
     addToCart,
@@ -77,6 +81,7 @@ export const CartProvider = ({ children }) => {
     clearCart,
     getTotalItems,
     getCartTotal,
+    isInCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
