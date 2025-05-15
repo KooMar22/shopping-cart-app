@@ -1,5 +1,5 @@
-import githubLogo from "../../public/images/github_logo.png";
-import linkedinLogo from "../../public/images/linkedin.jpg";
+import githubLogo from "../assets/images/github_logo.png";
+import linkedinLogo from "../assets/images/linkedin.jpg";
 
 function Footer() {
   const year = new Date().getFullYear();

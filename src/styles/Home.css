@@ -8,3 +8,32 @@
     background-color: rgb(113, 29, 193);
     color: rgb(255, 255, 255);
 }
+
+.home p {
+    margin: .5rem 1.5rem;
+}
+
+.products-preview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+}
+
+.products-preview p {
+    text-align: justify;
+}
+
+.products-preview img {
+    width: 250px;
+    height: 250px;
+}
+
+.products-preview > * {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1.5rem;
+    padding: 1.5rem;
+    gap: 1.5rem;
+}

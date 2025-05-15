@@ -2,3 +2,6 @@ Marko's Dummy Online Store is a dummy webshop with fake products in order to tes
 
 It uses FakeStore API to retrieve non-real products:
 https://fakestoreapi.com/
+
+If you'd like to see the live preview, feel free to visit:
+https://shopping-cart-app-virid-three.vercel.app/
